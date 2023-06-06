@@ -1,0 +1,6 @@
+<div class="mb-3" *ngFor="let item of data">
+  <a href="https://images.drivebc.ca/bchighwaycam/pub/html/dbc/{{ item.id }}.html" target="_blank"
+    ><strong>{{ item.name }} :</strong> {{ item.description }}</a
+  >
+</div>
+<div *ngIf="data.length === 0">There are no webcams near your selected route.</div>

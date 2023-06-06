@@ -1,0 +1,29 @@
+<div *ngIf="dayUseData">
+  <h2 *ngIf="dayUseData.status === 'open'">Day Use Pass required</h2>
+  <h2 *ngIf="dayUseData.status === 'closed'">Day Use Pass not required</h2>
+
+  <div *ngIf="dayUseData.status === 'open'">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Facility</th>
+            <th scope="col">AM Availability</th>
+            <th scope="col">PM Availability</th>
+            <th scope="col">DAY Availability</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let facility of facilties">
+            <th scope="row">{{ facility.name }}</th>
+            <td [className]="facility.amStyle">{{ facility.am || "N/A" }}</td>
+            <td [className]="facility.pmStyle">{{ facility.pm || "N/A" }}</td>
+            <td [className]="facility.dayStyle">{{ facility.day || "N/A" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <a target="_blank" href="https://reserve.bcparks.ca/dayuse/" class="btn btn-primary">Book Pass</a>
+  </div>
+</div>

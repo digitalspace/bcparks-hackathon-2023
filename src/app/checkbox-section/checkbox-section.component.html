@@ -1,0 +1,12 @@
+<ng-container *ngFor="let data of dataSources | keyvalue">
+  <div class="form-check data-check-box">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      id="{{ data.key }}"
+      [(ngModel)]="data.value.show"
+      (change)="toggleEvent(data.key)"
+    />
+    <label class="form-check-label" for="{{ data.key }}">{{ data.value.label }}</label>
+  </div>
+</ng-container>

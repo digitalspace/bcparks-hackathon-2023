@@ -1,0 +1,11 @@
+<div class="mb-3" *ngFor="let item of data">
+  <strong
+    >Wildfire:
+    <span *ngIf="item.stageOfControlCode === 'OUT_CNTRL'" class="text-danger">Out of Control</span>
+    <span *ngIf="item.stageOfControlCode === 'UNDR_CNTRL'" class="text-success">Under Control</span>
+    <span *ngIf="item.stageOfControlCode === 'HOLDING'" class="text-warning">Holding</span>
+  </strong>
+  <div>{{ item.incidentLocation }} ({{ item.fireCentreName }})</div>
+  <div>Estimated size: {{ item.incidentSizeEstimatedHa }}ha</div>
+</div>
+<div *ngIf="data.length === 0">There are no wildfire events near your selected route.</div>

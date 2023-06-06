@@ -1,0 +1,4 @@
+<div class="mb-3" *ngFor="let item of data">
+  <strong>{{ item.type }}:</strong> {{ item.description }}
+</div>
+<div *ngIf="data.length === 0">There are no issues near your selected route.</div>

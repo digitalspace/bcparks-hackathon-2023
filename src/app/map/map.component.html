@@ -1,0 +1,20 @@
+<google-map width="100%" [options]="mapOptions">
+  <ng-container *ngFor="let data of mapData | keyvalue">
+    <map-marker
+      #mapMarker="mapMarker"
+      *ngFor="let marker of data.value['markerPositions']; let i = index"
+      [position]="marker"
+      [options]="data.value['markerOptions']"
+      (mapClick)="openInfoWindow(mapMarker, marker.infoWindow)"
+    >
+      <map-info-window> </map-info-window>
+    </map-marker>
+  </ng-container>
+  <div *ngIf="mainPolygon && showBoundary">
+    <map-polygon [paths]="mainPolygon"></map-polygon>
+  </div>
+  <map-directions-renderer
+    *ngIf="directionsResults$ | async as directionsResults"
+    [directions]="directionsResults"
+  ></map-directions-renderer>
+</google-map>

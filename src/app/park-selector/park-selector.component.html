@@ -1,0 +1,11 @@
+<select
+  class="form-select"
+  aria-label="Park select"
+  (ngModelChange)="parkSelectEvent($event)"
+  [(ngModel)]="selectedPark"
+>
+  <option selected disabled [ngValue]="null">Choose a park</option>
+  <option *ngFor="let park of parks" [ngValue]="park">
+    {{ park.name }}
+  </option>
+</select>

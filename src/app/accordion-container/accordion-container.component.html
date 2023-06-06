@@ -1,0 +1,61 @@
+<div class="accordion" id="mapAccordion" *ngIf="mainPolygon && limitSearchBoundary">
+  <ng-container *ngFor="let data of mapData | keyvalue">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          [attr.data-bs-target]="'#collapse' + data.value['id']"
+          aria-expanded="false"
+          [attr.aria-controls]="'collapse' + data.value['id']"
+        >
+          {{ data.value["label"] }}
+        </button>
+      </h2>
+      <div [attr.id]="'collapse' + data.value['id']" class="accordion-collapse collapse" data-bs-parent="#mapAccordion">
+        <div class="accordion-body">
+          <!-- Wildfire -->
+          <ng-container *ngIf="data.value['id'] === 'wfOOC'">
+            <app-accordion-container-wildfire [data]="data.value['data']"></app-accordion-container-wildfire>
+          </ng-container>
+          <ng-container *ngIf="data.value['id'] === 'wfHeld'">
+            <app-accordion-container-wildfire [data]="data.value['data']"></app-accordion-container-wildfire>
+          </ng-container>
+          <ng-container *ngIf="data.value['id'] === 'wfUnderControl'">
+            <app-accordion-container-wildfire [data]="data.value['data']"></app-accordion-container-wildfire>
+          </ng-container>
+
+          <!-- Drive BC Events -->
+          <ng-container *ngIf="data.value['id'] === 'driveBCEventsConstruction'">
+            <app-accordion-container-drive-bc-events
+              [data]="data.value['data']"
+            ></app-accordion-container-drive-bc-events>
+          </ng-container>
+          <ng-container *ngIf="data.value['id'] === 'driveBCEventsIncedent'">
+            <app-accordion-container-drive-bc-events
+              [data]="data.value['data']"
+            ></app-accordion-container-drive-bc-events>
+          </ng-container>
+          <ng-container *ngIf="data.value['id'] === 'driveBCEventsSpecialEvent'">
+            <app-accordion-container-drive-bc-events
+              [data]="data.value['data']"
+            ></app-accordion-container-drive-bc-events>
+          </ng-container>
+          <ng-container *ngIf="data.value['id'] === 'driveBCEventsWeatherCondition'">
+            <app-accordion-container-drive-bc-events
+              [data]="data.value['data']"
+            ></app-accordion-container-drive-bc-events>
+          </ng-container>
+
+          <!-- Drive BC Webcams -->
+          <ng-container *ngIf="data.value['id'] === 'driveBCWebcam'">
+            <app-accordion-container-drive-bc-webcam
+              [data]="data.value['data']"
+            ></app-accordion-container-drive-bc-webcam>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

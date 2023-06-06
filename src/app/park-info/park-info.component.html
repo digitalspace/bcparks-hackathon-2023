@@ -1,0 +1,22 @@
+<ng-container *ngIf="park">
+  <div [@inOutAnimation]>
+    <h3>Park Info</h3>
+    <div class="card" *ngIf="park">
+      <!-- <div class="card-header">Park Info</div> -->
+      <img src="{{ park.imgUrl }}" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{ park.name }}</h5>
+        <p class="card-text">
+          {{ park.description }}
+        </p>
+        <a target="_blank" href="{{ park.bcParksLink }}" class="btn btn-primary"
+          >More Info</a
+        >
+        <hr />
+        <app-dayuse-accordion-item
+          [dayUseData]="dayUseData"
+        ></app-dayuse-accordion-item>
+      </div>
+    </div>
+  </div>
+</ng-container>
