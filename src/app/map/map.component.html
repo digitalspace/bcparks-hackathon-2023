@@ -1,0 +1,368 @@
+<div class="container">
+  <section>
+    <h1>
+      BC Parks Hack Map&nbsp;&nbsp;<span
+        class="badge rounded-pill bg-danger"
+        [ngClass]="easterEgg ? 'spin-badge' : ''"
+        >ALPHA</span
+      >
+    </h1>
+
+    <p>Get directions and live road conditions for your trip to a BC park.</p>
+  </section>
+  <div class="main-content pt-4 p-md-5 p-sm-1 border">
+    <section>
+      <h2>Plan your route</h2>
+      <div class="d-flex justify-content-between flex-wrap">
+        <div class="flex-fill me-md-4 mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="starting-location-input"
+            aria-describedby="startingLocation"
+            placeholder="Starting location"
+            [(ngModel)]="autocompleteInput"
+            [disabled]="!apiLoaded"
+            #addresstext
+          />
+        </div>
+        <div class="flex-fill mb-3">
+          <select
+            class="form-select"
+            aria-label="Park select"
+            [disabled]="!apiLoaded"
+            (ngModelChange)="parkSelectEvent($event)"
+            [(ngModel)]="selectedPark"
+          >
+            <option selected disabled [ngValue]="null">Choose a park</option>
+            <option *ngFor="let park of parks" [ngValue]="park">
+              {{ park.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div *ngIf="this.distance" class="d-flex mb-1">
+        <div>
+          <img class="me-2" src="assets\images\car-front-fill.svg" />
+        </div>
+        <span class="me-3"
+          ><b>{{ this.duration }}</b></span
+        >
+        <span>{{ this.distance }}</span>
+      </div>
+    </section>
+
+    <section class="mt-4">
+      <h3>Toggle Data</h3>
+      <div class="d-sm-flex justify-content-start flex-wrap toggles">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="wfChecked"
+            [(ngModel)]="wfChecked"
+            (change)="getWFData()"
+          />
+          <label class="form-check-label" for="wfChecked"> Wildfires </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="driveChecked"
+            [(ngModel)]="driveChecked"
+            (change)="getDriveData()"
+          />
+          <label class="form-check-label" for="driveChecked"> Drive BC </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="webcamChecked"
+            [(ngModel)]="webcamChecked"
+            (change)="getWebcamData()"
+          />
+          <label class="form-check-label" for="webcamChecked">
+            Highway Webcams
+          </label>
+        </div>
+      </div>
+      <div class="d-sm-flex justify-content-start flex-wrap toggles mt-3">
+        <div class="form-check form-switch">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="limitSearchBoundary"
+            id="limitSearchBoundaryToggle"
+            (change)="fetchData()"
+          />
+          <label class="form-check-label" for="flexCheckChecked">
+            Limit to search boundary
+          </label>
+        </div>
+        <div class="form-check form-switch">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value="showBoundary"
+            id="polylineViewToggle"
+            (change)="showBoundaryChange()"
+          />
+          <label class="form-check-label" for="flexCheckChecked">
+            Show search boundary
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <div *ngIf="apiLoaded | async">
+        <google-map width="100%" [options]="options">
+          <map-marker
+            #somemarker="mapMarker"
+            *ngFor="
+              let wfMarkerPosition of wfMarkerPositionsOutOfControl;
+              let i = index
+            "
+            [position]="wfMarkerPosition"
+            [options]="filterWFByType('outofcontrol')"
+            (mapClick)="openInfoWindow(somemarker, i, 'ooc')"
+          >
+            <map-info-window> </map-info-window>
+          </map-marker>
+          <map-marker
+            #somemarker="mapMarker"
+            *ngFor="
+              let wfMarkerPosition of wfMarkerPositionsUnderControl;
+              let ia = index
+            "
+            [position]="wfMarkerPosition"
+            [options]="filterWFByType('undercontrol')"
+            (mapClick)="openInfoWindow(somemarker, ia, 'under')"
+          >
+            <map-info-window> </map-info-window>
+          </map-marker>
+          <map-marker
+            #somemarker="mapMarker"
+            *ngFor="
+              let wfMarkerPosition of wfMarkerPositionsHolding;
+              let ib = index
+            "
+            [position]="wfMarkerPosition"
+            [options]="filterWFByType('held')"
+            (mapClick)="openInfoWindow(somemarker, ib, 'holding')"
+          >
+            <map-info-window> </map-info-window>
+          </map-marker>
+          <map-marker
+            #somemarker="mapMarker"
+            *ngFor="
+              let driveMarkerPosition of driveMarkerPositions;
+              let ib = index
+            "
+            [position]="driveMarkerPosition"
+            [options]="driveMarkerOptions"
+            (mapClick)="openInfoWindow(somemarker, ib, 'drive')"
+          >
+            <map-info-window> </map-info-window
+          ></map-marker>
+          <map-marker
+            #somemarker="mapMarker"
+            *ngFor="
+              let driveMarkerPosition of driveMarkerPositionsIncident;
+              let ib = index
+            "
+            [position]="driveMarkerPosition"
+            [options]="filterWFByType('incident')"
+            (mapClick)="openInfoWindow(somemarker, ib, 'driveincident')"
+          >
+            <map-info-window> </map-info-window>
+          </map-marker>
+          <map-marker
+            #somemarker="mapMarker"
+            *ngFor="
+              let driveMarkerPosition of driveMarkerPositionsSpecialEvent;
+              let ib = index
+            "
+            [position]="driveMarkerPosition"
+            [options]="filterWFByType('specialevent')"
+            (mapClick)="openInfoWindow(somemarker, ib, 'specialevent')"
+          >
+            <map-info-window> </map-info-window>
+          </map-marker>
+          <map-marker
+            #somemarker="mapMarker"
+            *ngFor="
+              let driveMarkerPosition of driveMarkerPositionsWeather;
+              let ib = index
+            "
+            [position]="driveMarkerPosition"
+            [options]="filterWFByType('weather')"
+            (mapClick)="openInfoWindow(somemarker, ib, 'weather')"
+          >
+            <map-info-window> </map-info-window>
+          </map-marker>
+          <map-marker
+            #somemarker="mapMarker"
+            *ngFor="
+              let webcamMarkerPosition of webcamMarkerPositions;
+              let ib = index
+            "
+            [position]="webcamMarkerPosition"
+            [options]="webcamMarkerOptions"
+            (mapClick)="openInfoWindow(somemarker, ib, 'webcam')"
+          >
+            <map-info-window> </map-info-window>
+          </map-marker>
+          <div *ngIf="mainPolygon && showBoundary">
+            <map-polygon [paths]="mainPolygon"></map-polygon>
+          </div>
+          <map-directions-renderer
+            *ngIf="directionsResults$ | async as directionsResults"
+            [directions]="directionsResults"
+          ></map-directions-renderer>
+        </google-map>
+      </div>
+    </section>
+
+    <section class="mt-5" [@inOutAnimation] *ngIf="selectedPark">
+      <app-park-info
+        [park]="selectedPark"
+        [dayUseData]="dayUseData"
+      ></app-park-info>
+    </section>
+
+    <section class="mt-5">
+      <div class="accordion" id="accordionExample">
+        <!-- WF accordion -->
+        <div
+          class="accordion-item"
+          [@inOutAnimation]
+          *ngIf="wfData && limitSearchBoundary"
+        >
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseWF"
+              aria-expanded="false"
+              aria-controls="collapseWF"
+            >
+              Wildfires
+            </button>
+          </h2>
+          <div
+            id="collapseWF"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <div class="mb-3" *ngFor="let item of wfData">
+                <strong
+                  >Wildfire:
+                  <span
+                    *ngIf="item.stageOfControlCode === 'UNDR_CNTRL'"
+                    class="text-success"
+                    >Under control</span
+                  >
+                  <span
+                    *ngIf="item.stageOfControlCode === 'OUT_CNTRL'"
+                    class="text-danger"
+                    >Out of control</span
+                  >
+                  <span
+                    *ngIf="item.stageOfControlCode === 'HOLDING'"
+                    class="text-warning"
+                    >Holding</span
+                  >
+                </strong>
+                <div>
+                  {{ item.incidentLocation }} ({{ item.fireCentreName }})
+                </div>
+                <div>Estimated size: {{ item.incidentSizeEstimatedHa }}ha</div>
+              </div>
+              <div *ngIf="wfData.length === 0">
+                There are no fires near your selected route.
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Drive BC accordion -->
+        <div
+          class="accordion-item"
+          [@inOutAnimation]
+          *ngIf="driveData && limitSearchBoundary"
+        >
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseDrive"
+              aria-expanded="false"
+              aria-controls="collapseDrive"
+            >
+              Drive BC
+            </button>
+          </h2>
+          <div
+            id="collapseDrive"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <div class="mb-3" *ngFor="let item of driveData">
+                <strong>{{ item.type }}:</strong> {{ item.description }}
+              </div>
+              <div *ngIf="driveData.length === 0">
+                There are no issues near your selected route.
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- webcam accordion -->
+        <div
+          class="accordion-item"
+          [@inOutAnimation]
+          *ngIf="webcamData && limitSearchBoundary"
+        >
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseWebcam"
+              aria-expanded="false"
+              aria-controls="collapseWebcam"
+            >
+              Highway webcams
+            </button>
+          </h2>
+          <div
+            id="collapseWebcam"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <div class="mb-3" *ngFor="let item of webcamData">
+                <a
+                  href="https://images.drivebc.ca/bchighwaycam/pub/html/dbc/{{
+                    item.id
+                  }}.html"
+                  target="_blank"
+                  ><strong>{{ item.name }} :</strong> {{ item.description }}</a
+                >
+              </div>
+              <div *ngIf="webcamData.length === 0">
+                There are no webcams near your selected route.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
