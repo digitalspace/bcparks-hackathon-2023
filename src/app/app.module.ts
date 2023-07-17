@@ -8,8 +8,6 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FooterModule } from './footer/footer.module';
-import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ParkInfoComponent } from './park-info/park-info.component';
 import { DayuseAccordionItemComponent } from './dayuse-accordion-item/dayuse-accordion-item.component';
@@ -29,7 +27,6 @@ import { AccordionContainerWildfireComponent } from './accordion-container/data-
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent,
     ParkInfoComponent,
     DayuseAccordionItemComponent,
     AutocompleteInputComponent,
@@ -52,7 +49,6 @@ import { AccordionContainerWildfireComponent } from './accordion-container/data-
     HttpClientModule,
     HttpClientJsonpModule,
     FormsModule,
-    FooterModule,
     BrowserAnimationsModule,
   ],
   providers: [],

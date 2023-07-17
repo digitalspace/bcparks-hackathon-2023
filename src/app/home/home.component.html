@@ -1,51 +1,49 @@
-<div class="container">
+<!-- <section>
+  <h1>
+    BC Parks Hack Map&nbsp;&nbsp;<span
+      class="badge rounded-pill bg-danger"
+      [ngClass]="konamiTriggered ? 'spin-badge' : ''"
+      >ALPHA</span
+    >
+  </h1>
+
+  <p>Get directions and live road conditions for your trip to a BC park.</p>
+</section> -->
+<div class="main-content">
   <section>
-    <h1>
-      BC Parks Hack Map&nbsp;&nbsp;<span
-        class="badge rounded-pill bg-danger"
-        [ngClass]="konamiTriggered ? 'spin-badge' : ''"
-        >ALPHA</span
-      >
-    </h1>
-
-    <p>Get directions and live road conditions for your trip to a BC park.</p>
+    <h2>Plan your route</h2>
+    <div class="d-flex justify-content-between flex-wrap">
+      <div class="flex-fill me-md-4 mb-3">
+        <app-autocomplete-input
+          [id]="autocompleteOriginId"
+          (autocompleteEvent)="autocompleteEvent(autocompleteOriginId, $event)"
+        ></app-autocomplete-input>
+      </div>
+      <div class="flex-fill mb-3">
+        <app-park-selector></app-park-selector>
+      </div>
+    </div>
+    <app-driving-estimation></app-driving-estimation>
   </section>
-  <div class="main-content pt-4 p-md-5 p-sm-1 border">
-    <section>
-      <h2>Plan your route</h2>
-      <div class="d-flex justify-content-between flex-wrap">
-        <div class="flex-fill me-md-4 mb-3">
-          <app-autocomplete-input
-            [id]="autocompleteOriginId"
-            (autocompleteEvent)="autocompleteEvent(autocompleteOriginId, $event)"
-          ></app-autocomplete-input>
-        </div>
-        <div class="flex-fill mb-3">
-          <app-park-selector></app-park-selector>
-        </div>
-      </div>
-      <app-driving-estimation></app-driving-estimation>
-    </section>
 
-    <section class="mt-4">
-      <h3>Toggle Data</h3>
-      <app-checkbox-section class="d-sm-flex justify-content-start flex-wrap"></app-checkbox-section>
-      <div class="d-sm-flex justify-content-start flex-wrap mt-3">
-        <app-limit-search-boundary-toggle></app-limit-search-boundary-toggle>
-        <app-show-boundary-toggle></app-show-boundary-toggle>
-      </div>
-    </section>
+  <section class="mt-4">
+    <h3>Toggle Data</h3>
+    <app-checkbox-section class="d-sm-flex justify-content-start flex-wrap"></app-checkbox-section>
+    <div class="d-sm-flex justify-content-start flex-wrap mt-3">
+      <app-limit-search-boundary-toggle></app-limit-search-boundary-toggle>
+      <app-show-boundary-toggle></app-show-boundary-toggle>
+    </div>
+  </section>
 
-    <section class="mt-5">
-      <app-map></app-map>
-    </section>
+  <section class="mt-5">
+    <app-map></app-map>
+  </section>
 
-    <section class="mt-5">
-      <app-park-info></app-park-info>
-    </section>
+  <section class="mt-5">
+    <app-park-info></app-park-info>
+  </section>
 
-    <section class="mt-5">
-      <app-accordion-container></app-accordion-container>
-    </section>
-  </div>
+  <section class="mt-5">
+    <app-accordion-container></app-accordion-container>
+  </section>
 </div>
