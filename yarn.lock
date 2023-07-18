@@ -194,9 +194,9 @@
     tslib "^2.3.0"
 
 "@angular/google-maps@^16.0.3":
-  version "16.0.3"
-  resolved "https://registry.yarnpkg.com/@angular/google-maps/-/google-maps-16.0.3.tgz#e99fd8de7e34d5784327762a9f6dec74dd4fdd0b"
-  integrity sha512-0Lmlp1ppGtw34XJ7HwQzKP6KJCdNrfH9ytAoz7+XBcc1qgq2fwDJlr6DaksdGQNzo8bfhMEJY74PYtLto8IRHA==
+  version "16.1.5"
+  resolved "https://registry.yarnpkg.com/@angular/google-maps/-/google-maps-16.1.5.tgz#21601e054383b4cedb502f2f4a3283158afed23c"
+  integrity sha512-1Hra8IY1fGzbXMO3JIyn/Dc5phWN/prpmGZU3EaD+S+HjIJG6rXBlcEPmHh+ICvjjR8hvwp9M7WvpfXLKy9jLQ==
   dependencies:
     "@types/google.maps" "^3.52.4"
     tslib "^2.3.0"
@@ -1794,9 +1794,9 @@
     "@types/serve-static" "*"
 
 "@types/google.maps@^3.52.4":
-  version "3.53.2"
-  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.53.2.tgz#ba921cc7900b72d4f58538a770a99bfadd9952a2"
-  integrity sha512-rgTa3R5DyFTcjX4hmuGs0XR+kD4M5tZ14lcyYzDDJGr5h0JYj7DbbNZRZNJKDzZOGH3fOXWpIbZGj3BxZbpmjw==
+  version "3.53.4"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.53.4.tgz#741442764ebaef1a6705f3ab2c047ffeba333020"
+  integrity sha512-IiDAYTONQEKCBssPtoM0XqWF8YIIk2leba4NOf9qVQ/d8l5gLuS3QT87TrX6/u8rMonQAXC9KEDmM4q7sT6MWg==
 
 "@types/http-proxy@^1.17.8":
   version "1.17.11"
@@ -3603,11 +3603,6 @@ gensync@^1.0.0-beta.2:
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
   integrity sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==
 
-geohashing@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/geohashing/-/geohashing-1.1.2.tgz#09ce9e779cc96a464bbae821e80a9ac327402246"
-  integrity sha512-C4P8lhcOYe5eDHgTMCtgr+auzNAixmEiN0mRB1JebETM1awSSKKQgr9N/0iK9MoIkW1HTKUz4mO1n8ovFTnehg==
-
 get-caller-file@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
@@ -4840,13 +4835,6 @@ ng-packagr@^16.0.0:
     sass "^1.55.0"
   optionalDependencies:
     esbuild "^0.17.0"
-
-ngds-toolkit@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/ngds-toolkit/-/ngds-toolkit-0.0.1.tgz#df198a2d7a0eeb0dfb4f704063147c27f7372c90"
-  integrity sha512-g0ycwufa7OZdCzLHnorJ+mxINjS77BYhk9XZDgS9ssJ0Bcj5Tv9DEarRsYMLwiRB/PdZEXTBwvTduw0DVf4C5w==
-  dependencies:
-    tslib "^2.3.0"
 
 nice-napi@^1.0.2:
   version "1.0.2"

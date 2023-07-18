@@ -36,10 +36,8 @@
               "node_modules/@digitalspace/bcparks-bootstrap-theme/dist/css/bootstrap-theme.min.css",
               "src/styles.scss"
             ],
-            "scripts": [
-              "node_modules/@digitalspace/bcparks-bootstrap-theme/dist/js/bootstrap-theme.min.js"
-            ],
-            "allowedCommonJsDependencies": ["jsts", "geohashing"]
+            "scripts": ["node_modules/@digitalspace/bcparks-bootstrap-theme/dist/js/bootstrap-theme.min.js"],
+            "allowedCommonJsDependencies": ["jsts"]
           },
           "configurations": {
             "production": {
@@ -124,10 +122,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/ds-bcgov-map/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
