@@ -1,5 +1,6 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { EasterEggService } from './services/easter-egg.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,20 @@ import { EasterEggService } from './services/easter-egg.service';
 export class AppComponent {
   title = 'bcparks-hack-map';
 
-  constructor(private easterEggService: EasterEggService) {}
+  private subscriptions = new Subscription();
 
-  @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    this.easterEggService.processKeyPress(event.key);
+  public konamiTriggered = false;
+
+  constructor(protected easterEggService: EasterEggService) {
+    // Easter Egg
+    this.subscriptions.add(
+      easterEggService.konamiTriggered.subscribe((trigger) => {
+        this.konamiTriggered = trigger;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

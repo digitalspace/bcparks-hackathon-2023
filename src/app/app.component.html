@@ -1,1 +1,20 @@
-<app-home></app-home>
+<app-header></app-header>
+<div class="content d-flex">
+  <div class="w-100 my-5">
+    <div class="container">
+      <section>
+        <h1>
+          BC Parks Hack Map&nbsp;&nbsp;<span
+            class="badge rounded-pill bg-danger"
+            [ngClass]="konamiTriggered ? 'spin-badge' : ''"
+            >ALPHA</span
+          >
+        </h1>
+
+        <p>Get directions and live road conditions for your trip to a BC park.</p>
+      </section>
+      <lib-ds-bcgov-map></lib-ds-bcgov-map>
+    </div>
+  </div>
+</div>
+<app-footer class="footer"></app-footer>
