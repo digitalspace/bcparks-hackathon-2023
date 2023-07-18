@@ -1,5 +1,5 @@
 {
-  "name": "ds-bcgov-map",
+  "name": "@digitalspace/ds-bcgov-map",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/animations": "^16.0.0",
