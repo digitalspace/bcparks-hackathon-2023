@@ -30,6 +30,11 @@
                 "glob": "*.svg",
                 "input": "./node_modules/bootstrap-icons/",
                 "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "./projects/ds-bcgov-map/assets",
+                "output": "./assets"
               }
             ],
             "styles": [

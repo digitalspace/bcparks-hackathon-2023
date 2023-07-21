@@ -1,24 +1,29 @@
-# DsBcgovMap
+# DS BCGOV Map
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
+To use this package, add via NPM or Yarn.
 
-## Code scaffolding
+`yarn add @digitalspace/ds-bcgov-map`
 
-Run `ng generate component component-name --project ds-bcgov-map` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ds-bcgov-map`.
-> Note: Don't forget to add `--project ds-bcgov-map` or else it will be added to the default project in your `angular.json` file. 
+Then install the package:
 
-## Build
+`yarn`
 
-Run `ng build ds-bcgov-map` to build the project. The build artifacts will be stored in the `dist/` directory.
+In your Angular code use the following tags:
 
-## Publishing
+`<lib-ds-bcgov-map></lib-ds-bcgov-map>`
 
-After building your library with `ng build ds-bcgov-map`, go to the dist folder `cd dist/ds-bcgov-map` and run `npm publish`.
+You must also include this in your head tag of your application:
 
-## Running unit tests
+`<script src="https://maps.googleapis.com/maps/api/js?key=CHANGEME&libraries=places"></script>`
 
-Run `ng test ds-bcgov-map` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Be sure to change `CHANGEME`to your Google Maps API key.
 
-## Further help
+You will also need to inlcude the package's assets to your project. Add the following to your angular.json's asset array under architect:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+{
+    "glob": "**/*",
+    "input": "./node_modules/@digitalspace/ds-bcgov-map/lib/assets",
+    "output": "./assets"
+}
+```
